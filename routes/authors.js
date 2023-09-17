@@ -4,16 +4,23 @@ const router = express.Router()
 
 
 router.get('/', async(req, res) => {
+    let searchOption = {}
+    if (req.query.name !== null || req.query.name !== '') {
+        searchOption.name = { $regex: new RegExp(req.query.name, 'i') };
+    }
+
     try {
-        const authors = await Author.find();
-        res.render('authors/', ({ authors: authors }))
+        const authors = await Author.find(searchOption);
+        res.render('authors/', ({
+            authors: authors,
+            searchOption: req.query
+        }))
     } catch (err) {
         console.log(err);
     }
 })
 
 router.get('/new', (req, res) => {
-
     res.render('authors/new')
 })
 

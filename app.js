@@ -7,6 +7,8 @@ const path = require('path');
 const ejsLayouts = require('express-ejs-layouts');
 
 const authorRouter = require('./routes/authors');
+const bookRouter = require('./routes/books');
+const indexRouter = require('./routes/index');
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -20,7 +22,9 @@ app.use(ejsLayouts);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('layout', 'layouts/layout');
+app.use('/', indexRouter)
 app.use('/authors', authorRouter)
+app.use('/books', bookRouter)
 
 
 app.get('/', (req, res) => {
