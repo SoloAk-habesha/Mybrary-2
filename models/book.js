@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -21,8 +20,10 @@ const bookSchema = new mongoose.Schema({
         required: true,
         min: 1
     },
-    coverImageName: {
-        type: String,
+
+
+    coverImage: {
+        type: Buffer,
         required: true
     },
     description: {
@@ -31,14 +32,16 @@ const bookSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
-    },
-
-    coverImageBasePath: {
-        type: String,
-        default: 'uploads/book_covers'
     }
 
 
+});
+
+bookSchema.virtual('coverImagePath').get(function() {
+    if (this.coverImage != null) {
+        const dataURI = `data:${this.coverImage.contentType};base64,${this.coverImage.toString('base64')}`;
+        return dataURI;
+    }
 });
 
 
