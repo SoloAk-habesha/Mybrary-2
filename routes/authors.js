@@ -1,5 +1,6 @@
 const express = require('express')
 const Author = require('../models/author');
+const Book = require('../models/book');
 const router = express.Router()
 
 
@@ -40,7 +41,71 @@ router.post('/', async(req, res) => {
 })
 
 
+router.get('/:id', async(req, res) => {
 
+    const author = await Author.findById(req.params.id);
+    const books = await Book.find({ author: req.params.id }).limit(6).exec();
+    try {
+        res.render(`authors/show`, {
+            author: author,
+            books: books
+        })
+    } catch {
+        res.redirect('/')
+    }
+})
+
+router.get('/:id/edit', async(req, res) => {
+    try {
+        const author = await Author.findById(req.params.id)
+        res.render(`authors/edit`, { author: author })
+    } catch (err) {
+        console.log(err);
+        res.redirect('authors/')
+    }
+})
+
+router.put('/:id', async(req, res) => {
+
+    let author
+    try {
+        author = await Author.findById(req.params.id)
+        author.name = req.body.name
+        await author.save()
+        res.redirect(`/authors/${author._id}`)
+    } catch {
+        if (author == null) {
+            res.redirect('/')
+        } else {
+            res.render('authors/edit', {
+                author: author,
+                errMessage: 'Error Updating Author'
+            })
+        }
+
+    }
+})
+
+router.delete('/:id', async(req, res) => {
+    let author;
+    try {
+        const book = await Book.findOne({ author: req.params.id });
+        if (book) {
+            console.log(`It connected to`);
+            return res.redirect(`/authors/${ req.params.id }`);
+        } else {
+            author = await Author.findByIdAndDelete(req.params.id);
+            return res.redirect('/authors');
+        }
+    } catch (err) {
+        console.log(err);
+        if (author == null) {
+            return res.redirect('/');
+        } else {
+            return res.redirect(`/authors/${req.params.id}`);
+        }
+    }
+});
 
 
 module.exports = router;

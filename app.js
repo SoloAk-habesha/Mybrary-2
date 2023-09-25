@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const express = require('express')
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 const path = require('path');
 const ejsLayouts = require('express-ejs-layouts');
 
@@ -18,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(ejsLayouts);
+app.use(methodOverride('_method'));
 
 
 app.set('views', path.join(__dirname, 'views'));

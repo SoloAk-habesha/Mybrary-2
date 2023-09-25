@@ -6,7 +6,7 @@ const router = express.Router()
 router.get('/', async(req, res) => {
     let books
     try {
-        books = await Book.find().limit(2).sort({ createdAt: 1 }).exec();
+        books = await Book.find().limit(2).sort({ createdAt: -1 }).exec();
     } catch {
         books = []
     }
