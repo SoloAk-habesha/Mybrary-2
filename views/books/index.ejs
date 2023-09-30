@@ -1,30 +1,37 @@
-<h2>Search Books</h2>
+<div class="page-header">Search Books</div>
+
+
 
 <form action="/books" method="get">
-    <div>
-        <label for="">Title</label>
-        <input type="text" id="title" name="title" value="<%=searchOption.title%>">
-    </div>
-    <div>
-        <label for="">Published After</label>
-        <input type="date" name="publishDateAfter" value="<%= searchOption.publishDateAfter ==null ? '' : searchOption.publishDateAfter %>">
-    </div>
-    <div>
-        <label for="">Published Before</label>
-        <input type="date" name="publishDateBefore" value="<%=searchOption.publishDateBefore ==null ? '' : searchOption.publishDateBefore %>">
-    </div>
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col">
+                <label for="">Title</label>
+                <input class="form-control" type="text" id="title" name="title" value="<%=searchOption.title%>">
+            </div>
+            <div class="col">
+                <label for="">Published After</label>
+                <input class="form-control" type="date" name="publishDateAfter" value="<%= searchOption.publishDateAfter ? new Date(searchOption.publishDateAfter).toISOString().split('T')[0] : new Date().toISOString().split('T')[0] %>">
+            </div>
+            <div class="col">
+                <label for="">Published Before</label>
+                <input class="form-control" type="date" name="publishDateBefore" value="<%= searchOption.publishDateBefore ? new Date(searchOption.publishDateBefore).toISOString().split('T')[0] : new Date().toISOString().split('T')[0] %>">
+            </div>
+        </div>
 
-    <button type="submit">Search</button>
+        <button class="btn btn-sm" type="submit">Search</button>
+    </div>
 </form>
 <br>
 
 <% books.forEach(book => { %>
-    <div>
-        <%=book.title%>
+    <div class="my-3 container-fluid">
+        <div>
+            <%=book.title%>
 
+        </div>
+        <div>
+            <a href="/books/<%= book._id%>"><img width="100" height="100" src="<%= book.coverImagePath %>"></a>
+        </div>
     </div>
-    <div>
-        <a href="/books/<%= book._id%>"><img width="100" height="100" src="<%= book.coverImagePath %>"></a>
-    </div>
-    <br><br>
     <% }) %>

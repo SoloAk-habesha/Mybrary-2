@@ -1,18 +1,26 @@
-<h2>Search Authors</h2>
+<div class="page-header">Search Authors</div>
 
-<form action="/authors" method="get">
-    <label for="">Name</label>
-    <input type="text" id="name" name="name" value="<%=searchOption.name%>">
-    <button type="submit">Search</button>
-</form>
-<br>
 
-<% authors.forEach(author => { %>
-    <div>
-        <%=author.name%>
+<form class="mb-3" action="/authors" method="get">
+    <div class="d-flex  align-items-stretch">
+        <input type="text" class="form-control" placeholder="Name" id="name" name="name" value="<%= searchOption.name %>">
+        <button class="btn btn-sm" type="submit">Search</button>
     </div>
+</form>
 
-    <a href="/authors/<%= author._id%>">View</a>
-    <%- include('../partials/editForm.ejs',{url:`/authors/${author._id}/edit`}) %>
-        <%- include('../partials/deleteForm.ejs',{url:`/authors/${author._id}`}) %>
-            <% }) %>
+
+<div>
+    <% authors.forEach(author => { %>
+        <div class="d-flex justify-content-between">
+            <div>
+                <%=author.name%>
+            </div>
+
+            <div class="d-flex justify-content-start ">
+                <button class="btn btn-sm m-1"><a href="/authors/<%= author._id%>">View</a></button>
+                <%- include('../partials/editForm.ejs',{url:`/authors/${author._id}/edit`}) %>
+                    <%- include('../partials/deleteForm.ejs',{url:`/authors/${author._id}`}) %>
+            </div>
+        </div>
+        <% }) %>
+</div>

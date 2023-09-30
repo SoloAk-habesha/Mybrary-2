@@ -1,39 +1,70 @@
-<h1>Edit Book</h1>
-<div>
-    <img width="100" height="100" src="<%= book.coverImagePath %>">
+<div class="page-header">Edit Book</div>
+<div class="container-fluid">
+    <img width="100" height="150" src="<%= book.coverImagePath %>">
 </div>
 <form action="/books/<%= book._id%>?_method=PUT" method="post">
-    <div>
-        <label for="">Title</label>
-        <input type="text" id="title" name="title" value="<%=book.title %>">
-    </div>
-    <div>
-        <label for="author">Author</label>
-        <select name="author" id="author">
-            <% authors.forEach(author => { %>
-                <option <%= author.name === book.author.name ? 'selected' : '' %> value="<%= author._id %>"><%= author.name %></option>
-            <% }) %>
-        </select>
-    </div>
-    <div>
-        <label for="">PublishDate</label>
-        <input type="date" id="publishDate" value="<%= book.publishDate ? book.publishDate.toISOString().substr(0, 10) : '' %>" name="publishDate">
+
+    <!-- Use container-fluid for full width -->
+    <div class="row mb-3">
+        <div class="col">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" class="form-control" value="<%= book.title %>">
+        </div>
+        <div class="col">
+            <label for="author">Author</label>
+            <select name="author" id="author" class="form-select">
+                <% authors.forEach(author => { %>
+                  <% if (author._id === book.author) { %>
+                    <option class="text-capitalize" selected value="<%= author._id %>"><%= author.name %></option>
+                  <% } else { %>
+                    <option  class="text-capitalize" value="<%= author._id %>"><%= author.name %></option>
+                  <% } %>
+                <% }) %>
+              </select>
+        </div>
     </div>
 
-    <div>
-        <label for="">Page Count</label>
-        <input type="number" value="<%=book.pageCount %>" id="pageCount" min="1" name="pageCount">
-    </div>
-    <div>
-        <label for="">Cover</label>
-        <input type="file" id="cover" name="cover" class="filepond" accept="image/*">
-    </div>
-    <div>
-        <label for="">Description</label>
-        <textarea name="description" id="description"><%=book.description %></textarea>
+    <div class="row  mb-3">
+        <div class="col">
+            <label for="publishDate">Publish Date</label>
+            <input type="date" id="publishDate" name="publishDate" class="form-control" value="<%= book.publishDate == null ? '' : book.publishDate.toISOString().split('T')[0] %>">
+        </div>
+        <div class="col">
+            <label for="pageCount">Page Count</label>
+            <input type="number" id="pageCount" name="pageCount" class="form-control" value="<%= book.pageCount %>" min="1">
+        </div>
     </div>
 
+    <div class="row  mb-3">
 
-    <a href="/books">Cancel</a>
-    <button type="submit">Update</button>
+        <div class="col fileUpload">
+            <input id="file-upload" type="file" name="cover" accept="image/*" />
+            <label for="file-upload" id="file-drag">
+      <img id="file-image" src="#" alt="Preview" class="hidden">
+      <div id="start">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        <div>Select a file or drag here</div>
+        <div id="notimage" class="hidden">Please select an image</div>
+        <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+      </div>
+      <div id="response" class="hidden">
+        <div id="messages"></div>
+        <progress class="progress" id="file-progress" value="0">
+          <span>0</span>%
+        </progress>
+      </div>
+    </label> </div>
+        <div class="col">
+            <label for="description">Description</label>
+            <textarea wid name="description" rows="5" id="description" class="form-control"><%= book.description %></textarea>
+        </div>
+    </div>
+    <div class="row mb-3 text-end">
+        <div class="col ms-auto ">
+            <a href="/books">Cancel</a>
+            <button class="mx-2 btn btn-sm btn-primary" type="submit">Update</button>
+        </div>
+    </div>
 </form>
+
+<div></div>

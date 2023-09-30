@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,500;8..144,800&family=Roboto:wght@300;400;900&display=swap');
+@import 'shared/variables.css';
+@import 'shared/header.css';
+@import 'shared/button.css';
+@import 'shared/fileUpload.css';
+:root {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+body {
+    background: linear-gradient(to right, var(--color-bg-dark), var(--color-bg-light));
+    color: var(--color-text-light);
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}

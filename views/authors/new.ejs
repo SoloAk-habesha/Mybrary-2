@@ -1,8 +1,10 @@
-<h1>New Authors</h1>
+<div class="page-header">New Authors</div>
 
-<form action="/authors" method="post">
-    <label for="">Name</label>
-    <input type="text" id="name" name="name">
-    <a href="/authors">Cancel</a>
-    <button type="submit">Add</button>
+<form class="mb-3" action="/authors" method="post">
+    <div class="d-flex  align-items-stretch">
+        <input type="text" class="form-control" placeholder="Name" id="name" name="name">
+        <a class="m-2 text-danger" href="/authors">Cancel</a>
+        <button class="btn" type="submit">Add</button>
+    </div>
+
 </form>

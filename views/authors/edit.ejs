@@ -1,8 +1,13 @@
-<h1>Edit Authors</h1>
+<div class="page-header">Edit Authors</div>
 
 <form action="/authors/<%= author._id%>?_method=PUT" method="post">
-    <label for="">Name</label>
-    <input type="text" id="name" name="name" value="<%= author.name %>">
-    <a href="/authors/<%= author._id%>">Cancel</a>
-    <button type="submit">Update</button>
+
+    <div class="d-flex  align-items-stretch">
+        <input type="text" class="form-control" placeholder="Name" id="name" name="name" value="<%= author.name %>">
+    </div>
+
+    <div class="text-end my-3">
+        <a href="/books">Cancel</a>
+        <button class="mx-2 btn btn-sm btn-primary" type="submit">Update</button>
+    </div>
 </form>

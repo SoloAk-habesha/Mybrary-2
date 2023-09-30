@@ -1,0 +1,38 @@
+@import 'variables.css';
+:root {
+    --color-bg-btn: rgb(var(--color-base));
+    --color-text-btn: #fff;
+}
+
+a,
+a:visited,
+a:active {
+    color: var(--color-text-light);
+    text-decoration: none;
+}
+
+.btn {
+    background-color: var(--color-bg-btn);
+    color: var(--color-text-btn);
+    opacity: 0.8;
+}
+
+.btn>a,
+.btn>a:visited,
+.btn>a:active {
+    color: var(--color-text-btn);
+}
+
+.btn:hover {
+    background-color: var(--color-bg-btn);
+    color: var(--color-text-btn);
+    opacity: 1;
+}
+
+.delete-btn {
+    background-color: rgba(136, 2, 2, 0.5);
+}
+
+.delete-btn:hover {
+    background-color: rgba(136, 2, 2, 0.8);
+}
